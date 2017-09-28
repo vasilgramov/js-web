@@ -1,4 +1,4 @@
-let storageModule = require('./storageModule.js');
+let storageModule = require('./storageModule.js').storage;
 
 storageModule.put('first','firstValue');
 // storage.put('second','secondValue');

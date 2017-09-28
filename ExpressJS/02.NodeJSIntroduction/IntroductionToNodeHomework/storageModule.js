@@ -1,215 +1,108 @@
-// let storage = (() => {
+let storage = (() => {
 
-//     let storage = new Map();
-//     let fs = require('fs');
+    let storage = new Map();
+    let fs = require('fs');
 
-//     function put(key, value) {
-//         if (!checkIfString(key)) {
-//             throw new Error('Key must be a String!');
-//         }
+    function put(key, value) {
+        if (!checkIfString(key)) {
+            throw new Error('The key must be a String!');
+        }
 
-//         if (isInStorage(key)) {
-//             throw new Error('Key is already in the Storage');
-//         }
+        if (isInStorage(key)) {
+            throw new Error('The key is already in the Storage');
+        }
 
-//         storage.set(key, value);
-//     }
+        storage.set(key, value);
+    }
 
-//     function get(key) {
-//         if (!checkIfString(key)) {
-//             throw new Error('Key must be a String!');
-//         }
+    function get(key) {
+        if (!checkIfString(key)) {
+            throw new Error('The key must be a String!');
+        }
 
-//         if (!isInStorage(key)) {
-//             throw new Error('Key is no in the Storage');
-//         }
-//     }
+        if (!isInStorage(key)) {
+            throw new Error('The key is not in the Storage');
+        }
 
-//     function getAll() {
-//         if (storage.size == 0) {
-//             return 'The Storage is empty!';
-//         }
+        return storage.get(key);
+    }
 
-//         return storage;
-//     }
+    function getAll() {
+        if (storage.size == 0) {
+            return 'The Storage is empty!';
+        }
 
-//     function update(key, newValue) {
-//         if (!checkIfString(key)) {
-//             throw new Error('Key must be a String!');
-//         }
+        return storage;
+    }
 
-//         if (!isInStorage(key)) {
-//             throw new Error('Key must be in the Storage!');
-//         }
+    function update(key, newValue) {
+        if (!checkIfString(key)) {
+            throw new Error('The key must be a String!');
+        }
 
-//         storage.set(key, newValue);
-//     }
+        if (!isInStorage(key)) {
+            throw new Error('The key must be in the Storage!');
+        }
 
-//     function remove(key) {
-//         if (!checkIfString(key)) {
-//             throw new Error('Key must be a String!');
-//         }
+        storage.set(key, newValue);
+    }
 
-//         if (!isInStorage(key)) {
-//             throw new Error('Key must be in the Storage!');
-//         }
+    function remove(key) {
+        if (!checkIfString(key)) {
+            throw new Error('The key must be a String!');
+        }
+
+        if (!isInStorage(key)) {
+            throw new Error('The key must be in the Storage!');
+        }
 
 
-//         storage.delete(key);
-//     }
+        storage.delete(key);
+    }
 
-//     function clear() {
-//         storage.clear();
-//     }
+    function clear() {
+        storage.clear();
+    }
 
-//     function save() {
-//         fs.writeFile(
-//             '/home/vladix/Programmig/JSWeb/ExpressJS/02.NodeJSIntroduction/IntroductionToNodeHomework/storage.json', 
-//             JSON.stringify([...storage]), 
-//             function(err) { if (err) { return; } }); 
-//     }
+    function save() {
+        fs.writeFile(
+            './storage.json', 
+            JSON.stringify([...storage]), 
+            function(err) { if (err) { return; } }); 
+    }
 
-//     function load(cb) {
-//         fs.readFile(
-//             '/home/vladix/Programmig/JSWeb/ExpressJS/02.NodeJSIntroduction/IntroductionToNodeHomework/storage.json', 
-//             'utf8', 
-//             function (err,data) {
-//             if (err) {  return;  }
+    function load(cb) {
+        fs.readFile(
+            './storage.json', 
+            'utf8', 
+            function (err,data) {
+            if (err) {  return;  }
         
-//             storage = new Map(JSON.parse(data));
+            storage = new Map(JSON.parse(data));
 
-//             console.log(storageModule);
-//             cb();   
-//           });
-//     }
+            console.log(cb());   
+          });
+    }
 
-//     function checkIfString(key) {
-//         return typeof key === 'string';
-//     }
+    function checkIfString(key) {
+        return typeof key === 'string';
+    }
 
-//     function isInStorage(key) {
-//         return storage.has(key);
-//     }
+    function isInStorage(key) {
+        return storage.has(key);
+    }
 
-//     return {
-//         put,
-//         get,
-//         getAll,
-//         update,
-//         remove,
-//         clear,
-//         save,
-//         load
-//     };
+    return {
+        put,
+        get,
+        getAll,
+        update,
+        remove,
+        clear,
+        save,
+        load
+    };
     
-// })();
+})();
 
-// module.exports = { storage };
-
-
-let storage = new Map();
-let fs = require('fs');
-
-function put(key, value) {
-    if (!checkIfString(key)) {
-        throw new Error('Key must be a String!');
-    }
-
-    if (isInStorage(key)) {
-        throw new Error('Key is already in the Storage');
-    }
-
-    storage.set(key, value);
-}
-
-function get(key) {
-    if (!checkIfString(key)) {
-        throw new Error('Key must be a String!');
-    }
-
-    if (!isInStorage(key)) {
-        throw new Error('Key is no in the Storage');
-    }
-
-    let item = storage.get(key);
-    return item;
-}
-
-function getAll() {
-    if (storage.size == 0) {
-        return 'The Storage is empty!';
-    }
-
-    return storage;
-}
-
-function update(key, newValue) {
-    if (!checkIfString(key)) {
-        throw new Error('Key must be a String!');
-    }
-
-    if (!isInStorage(key)) {
-        throw new Error('Key must be in the Storage!');
-    }
-
-    storage.set(key, newValue);
-}
-
-function remove(key) {
-    if (!checkIfString(key)) {
-        throw new Error('Key must be a String!');
-    }
-
-    if (!isInStorage(key)) {
-        throw new Error('Key must be in the Storage!');
-    }
-
-
-    storage.delete(key);
-}
-
-function clear() {
-    storage.clear();
-}
-
-function save(cb) {
-    fs.writeFile(
-        '/home/vladix/Programmig/JSWeb/ExpressJS/02.NodeJSIntroduction/IntroductionToNodeHomework/storage.json', 
-        JSON.stringify([...storage]), 
-        function(err) { if (err) { return; } 
-        
-        console.log(cb());
-    }); 
-}
-
-function load(cb) {
-    fs.readFile(
-        '/home/vladix/Programmig/JSWeb/ExpressJS/02.NodeJSIntroduction/IntroductionToNodeHomework/storage.json', 
-        'utf8', 
-        function (err,data) {
-        if (err) {  return;  }
-    
-        storage = new Map(JSON.parse(data));
-        
-        console.log(cb());
-    });
-}
-
-function checkIfString(key) {
-    return typeof key === 'string';
-}
-
-function isInStorage(key) {
-    return storage.has(key);
-}
-
-module.exports = {
-    put: put,
-    get: get,
-    getAll: getAll,
-    update: update,
-    remove: remove,
-    clear: clear,
-    save: save,
-    load: load 
-}
+module.exports = { storage };
