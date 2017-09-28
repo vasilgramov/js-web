@@ -8,6 +8,7 @@ storageModule.put('first','firstValue');
 
 storageModule.save();
 storageModule.clear();
+
 storageModule.load(() => storageModule.get('first'));
 
 // console.log(storage.get('first'));

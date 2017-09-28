@@ -130,6 +130,9 @@ function get(key) {
     if (!isInStorage(key)) {
         throw new Error('Key is no in the Storage');
     }
+
+    let item = storage.get(key);
+    return item;
 }
 
 function getAll() {
@@ -169,11 +172,14 @@ function clear() {
     storage.clear();
 }
 
-function save() {
+function save(cb) {
     fs.writeFile(
         '/home/vladix/Programmig/JSWeb/ExpressJS/02.NodeJSIntroduction/IntroductionToNodeHomework/storage.json', 
         JSON.stringify([...storage]), 
-        function(err) { if (err) { return; } }); 
+        function(err) { if (err) { return; } 
+        
+        console.log(cb());
+    }); 
 }
 
 function load(cb) {
@@ -184,10 +190,9 @@ function load(cb) {
         if (err) {  return;  }
     
         storage = new Map(JSON.parse(data));
-        console.log(storage);
-
-        cb();   
-      });
+        
+        console.log(cb());
+    });
 }
 
 function checkIfString(key) {
