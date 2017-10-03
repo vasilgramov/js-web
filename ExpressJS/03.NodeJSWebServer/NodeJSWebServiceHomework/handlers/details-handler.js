@@ -36,7 +36,7 @@ function getMovie(id) {
         if (count == Number(id)) {
             return `<div class="content">
             <img src="${unescape(movie['moviePoster'])}" alt=""/>
-            <h3>Title  ${movie['movieTitle'].replace(/\+/g, ' ')}</h3>
+            <h3>Title  ${unescape(movie['movieTitle']).replace(/\+/g, ' ')}</h3>
             <h3>Year ${movie['movieYear']}</h3>
             <p>${unescape(movie['movieDescription']).replace(/\+/g, ' ')}</p>
             </div>`;

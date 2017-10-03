@@ -28,38 +28,18 @@ function writeHead(path, res) {
     let dotIndex = path.indexOf('.');
     let extenstion = path.slice(dotIndex + 1, path.length);
 
-    switch (extenstion) {
-        case 'html':
-            res.writeHead(200, {
-                'content-type': 'text/html'
-            });
-            break;
-        case 'css':
-            res.writeHead(200, {
-                'content-type': 'text/css'
-            });
-            break;
-        case 'js':
-            res.writeHead(200, {
-                'content-type': 'application/javascript'
-            });
-            break;
-        case 'png':
-            res.writeHead(200, {
-                'content-type': 'image/png'
-            });
-            break;
-        case 'jpg':
-            res.writeHead(200, {
-                'content-type': 'image/jpeg'
-            });
-            break;
-        case 'ico':
-            res.writeHead(200, {
-                'content-type': 'image/x-icon'
-            });
-            break;
-    }
+    let mimeType = {
+        'html': 'text/html',
+        'css': 'text/css',
+        'js': 'application/javascript',
+        'png': 'image/png',
+        'jpg': 'image/jpeg',
+        'ico': 'image/x-icon'
+    };
+
+    res.writeHead(200, {
+        'content-type': mimeType[extenstion]
+    });
 }
 
 module.exports = getContent;
