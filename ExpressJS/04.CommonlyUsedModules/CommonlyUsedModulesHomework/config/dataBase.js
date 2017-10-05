@@ -50,10 +50,15 @@ let getById = (id) => {
   throw Error('Meme not found')
 }
 
+let length = () => {
+  return db.length
+}
+
 module.exports = {
   load:load,
   save:save,
   getDb:dbCopy,
   add:add,
-  getById: getById
+  getById: getById,
+  length: length
 }

@@ -2,6 +2,7 @@ const fs = require('fs')
 const url = require('url')
 const formidable = require('formidable')
 const util = require('util')
+const shortid = require('shortid')
 
 const dataBase = require('../config/dataBase.js')
 
@@ -71,18 +72,29 @@ function viewAddMeme(req,res) {
 
 function addMeme(req, res) {
   let form = new formidable.IncomingForm()
+
+  let dir = Math.floor(dataBase.length() / 10)
+  let id = shortid.generate()
+
+  let path = `./public/memeStorage/${dir}`
+
+  form.on('fileBegin', function(name, file) {
+    if (!fs.existsSync(path)){
+      fs.mkdirSync(path);
+    }
+
+    file.path = path + `/${id}.jpg`
+    console.log(file.path)
+  });
   
   form.parse(req, function(err, fields, files) {
     
-    res.writeHead(200, {'content-type': 'text/plain'});
-    
-    res.write('received upload:\n\n');
+    let meme = createMeme(id, fields['memeTitle'], path + `/${id}.jpg`, fields['memeDescription'], fields['status'])
+    dataBase.add(meme)
+    dataBase.save()
 
-
-    res.end(util.inspect({fields: fields, files: files}));
+    viewAddMeme(req, res)
   })
-
-  console.log(form)
 }
 
 function getDetails(req, res) {
@@ -112,4 +124,15 @@ function getDetails(req, res) {
 
     res.end()
   })
+}
+
+function createMeme(id, title, memeSrc, description, privacy) {
+  return {
+    id: id,
+    title: title,
+    memeSrc: memeSrc,
+    description: description,
+    privacy: privacy,
+    dateStamp: Date.now()
+  }
 }
