@@ -1,4 +1,5 @@
 const formidable = require('formidable')
+const fs = require('fs')
 
 const Image = require('../models/ImageSchema')
 const Tag = require('../models/TagSchema')
@@ -32,7 +33,7 @@ function addImage(req, res) {
 
   let form = new formidable.IncomingForm()
   form.parse(req, (err, fields, file) => {
-    if (err) {
+    if (err) {  
       console.log(err)
       return
     }
@@ -40,21 +41,34 @@ function addImage(req, res) {
     let tags = fields['tagsID'].split(',')
     tags.pop()
     fields['tags'] = tags
-    
+
     delete fields['tagsID']
 
     Image.create(fields).then((image) => {
+      
+      // for (let tagId of image['tags']) {
+      //   Tag.findByIdAndUpdate(tagId).then((tag) => {
+      //     tag['images'].push(image['_id'])
+          
+      //     tag.save()
+      //       .then((tag) => { })
+      //       .catch((err) => { })
+      //   })
+      // }
+
+      // getHome(res)
+
       Tag.update(
         { _id: { $in: fields['tags'] } },
         { $push: { images: image._id } },
         { multi: true }
       ).then((e) => {
-        console.log(e)
+        getHome(res)
+      }).catch((err) => {
+        console.log(err)
       })
 
-    }).catch((err) => {
-      console.log(err)
-    }) 
+    })
   })
 }
 
