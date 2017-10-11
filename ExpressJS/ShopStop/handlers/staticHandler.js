@@ -4,7 +4,6 @@ const url = require('url')
 
 module.exports = ((req, res) => {
     req.pathname = req.pathname || url.parse(req.url).pathname
-    
 
     if (!(req.pathname.startsWith('/content/') && req.method === 'GET')) return true
     else if (req.pathname.startsWith('/content/') && req.method === 'GET') {

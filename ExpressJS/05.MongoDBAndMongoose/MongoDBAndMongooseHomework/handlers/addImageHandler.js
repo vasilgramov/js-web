@@ -46,6 +46,7 @@ function addImage(req, res) {
 
     Image.create(fields).then((image) => {
       
+      /*
       // for (let tagId of image['tags']) {
       //   Tag.findByIdAndUpdate(tagId).then((tag) => {
       //     tag['images'].push(image['_id'])
@@ -57,6 +58,7 @@ function addImage(req, res) {
       // }
 
       // getHome(res)
+      */
 
       Tag.update(
         { _id: { $in: fields['tags'] } },
@@ -70,6 +72,19 @@ function addImage(req, res) {
 
     })
   })
+}
+
+function deleteImg(req, res) {
+  let id = req.pathquery['id']
+
+  Image.findOneAndRemove({_id : id}, function (err, removed) {
+    if (err) {
+      console.log(err)
+      return
+    }
+
+    getHome(res)
+  });
 }
 
 module.exports = (req, res) => {

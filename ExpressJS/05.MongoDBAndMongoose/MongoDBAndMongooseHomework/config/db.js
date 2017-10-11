@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const path = 'mongodb://localhost:27017/homework'
+const path = 'mongodb://admin:admin@ds115625.mlab.com:15625/playground'
 
 mongoose.Promise = global.Promise
 

@@ -12,3 +12,5 @@ http.createServer((req, res) => {
     }
 
 }).listen(port)
+
+console.log('Server is running ...')

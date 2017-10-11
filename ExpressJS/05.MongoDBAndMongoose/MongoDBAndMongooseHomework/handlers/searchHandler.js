@@ -9,6 +9,10 @@ module.exports = (req, res) => {
 
     let constraints = req.pathquery
 
+    if (constraints['Limit'] === '') {
+      constraints['Limit'] = Number.MAX_VALUE;
+    }
+
     constraints['tagName'] = constraints['tagName'].split(', ')
 
     Tag.find(
@@ -27,8 +31,6 @@ module.exports = (req, res) => {
           }
         }
 
-        console.log(found)
-
         let string = ''
         for (let image of found) {
           string += 
@@ -40,7 +42,7 @@ module.exports = (req, res) => {
           </fieldset>`
         }
 
-        fs.readFile('/home/vladix/Programmig/JSWeb/ExpressJS/05.MongoDBAndMongoose/MongoDBAndMongooseHomework/views/results.html', (err, data) => {
+        fs.readFile('./views/results.html', (err, data) => {
           if (err) {
             console.log(err)
             return
@@ -79,10 +81,7 @@ function hasRequirements(image, tags, requirements) {
 
 function includes(tagId, tags) {
   for (let id of tags) {
-    console.log(id['_id'])
-    console.log(tagId)
-    
-    if (id['_id'] == tagId) return true
+    if ((id['_id'] + '') === (tagId + '')) return true
   }
 
   return false
