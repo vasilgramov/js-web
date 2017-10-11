@@ -26,7 +26,7 @@ module.exports = ((req, res) => {
             let products = database.products.getAll()
             for (let product of products) {
                 if (queryData.query === undefined || 
-                    queryData.query.toString().toLowerCase() === product.name.toString().toLowerCase()) {
+                        queryData.query.toString().toLowerCase() === product.name.toString().toLowerCase()) {
                     content += 
                     `<div class="product-card">
                     <img class="product-img" src="${product.image}">
