@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const path = 'mongodb://localhost/memedb'
+const path = 'mongodb://localhost/dbmeme'
 
 mongoose.Promise = global.Promise
 

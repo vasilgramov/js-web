@@ -1,5 +1,5 @@
 {
-  "name": "demo",
+  "name": "softuni",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -11,6 +11,7 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "hbs": "~4.0.1",
+    "mongoose": "^4.12.1",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5"
   }

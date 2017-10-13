@@ -20,7 +20,6 @@ module.exports = ((req, res) => {
             }
 
             let queryData = qs.parse(url.parse(req.url).query)
-            console.log(queryData.query)
 
             let content = ''            
             let products = database.products.getAll()

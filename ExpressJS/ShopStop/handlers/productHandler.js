@@ -3,6 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const qs = require('querystring')
 const formidable = require('formidable')
+const shortid = require('shortid')
 
 const database = require('../config/database')
 
@@ -43,8 +44,18 @@ function getAddProcuct(req, res) {
 
 function postAddProduct(req, res) {
     let form = new formidable.IncomingForm()
+
+    let imageName = shortid.generate()
+    form.on('fileBegin', function(name, file) {
+        file.name = imageName
+        file.path = `./content/images/${imageName}.jpg`
+    })
     
     form.parse(req, function(err, fields, files) {
+        // console.log(fields)
+
+        // TODO: image not displaying
+        files.image = `./content/images/${imageName}.jpg`
         database.products.add(fields)
 
         res.writeHead(301, {
