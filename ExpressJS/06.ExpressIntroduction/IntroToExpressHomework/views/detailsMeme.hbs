@@ -1,0 +1,8 @@
+<div class="content">
+  {{#if meme}}
+    <img src="/images/{{meme._id}}.jpg" alt="Could not find image"/>
+    <h3>Title {{meme.title}}</h3>
+    <p>{{meme.description}}</p>
+    <button><a href="/images/{{meme._id}}.jpg" download="{{meme.title}}.jpg">Download Meme</a></button>
+  {{/if}}
+</div>

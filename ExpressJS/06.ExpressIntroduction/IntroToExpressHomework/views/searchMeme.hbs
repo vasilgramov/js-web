@@ -1,12 +1,27 @@
 <div class="container">
+
+    {{#if genres}}
     <form action="/searchMeme" enctype=multipart/form-data>
         <label for="memeTitle">Title</label>
         <input type="text" id="memeTitle" name="memeTitle" placeholder="The title of the meme">
 
         <select name='genreSelect' id="genreSelect">
-            <div id="replaceMe">{{replaceMe}}</div>
+            {{#each genres}}
+            <option value="{{this._id}}">{{this.name}}</option>
+            {{/each}}
         </select>
-        <input type="submit" value="Submit">
 
+        <input type="submit" value="Submit">
     </form>
+    {{/if}} 
+    {{#if foundMemes}} 
+        {{#each foundMemes}}
+        <div class="meme">
+            <a href="/getDetails?id={{this._id}}">
+                <img class="memePoster" src="/images/{{this._id}}.jpg"/>
+            </a>
+        </div>
+        {{/each}} 
+    {{/if}}
+
 </div>

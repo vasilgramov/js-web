@@ -4,6 +4,7 @@ const favicon = require('serve-favicon')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+const fileUpload = require('express-fileupload')
 
 //====================================
 
@@ -12,6 +13,7 @@ const addMeme = require('./routes/addMeme')
 const addGenre = require('./routes/addGenre')
 const viewAllMemes = require('./routes/viewAllMemes')
 const searchMeme = require('./routes/searchMeme')
+const detailsMeme = require('./routes/detailsMeme')
 
 //====================================
 
@@ -27,9 +29,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(fileUpload());
 
 //====================================
-
 
 
 app.use('/', index)
@@ -37,6 +39,7 @@ app.use('/addMeme', addMeme)
 app.use('/addGenre', addGenre)
 app.use('/viewAllMemes', viewAllMemes)
 app.use('/searchMeme', searchMeme)
+app.use('/getDetails', detailsMeme)
 
 
 //====================================

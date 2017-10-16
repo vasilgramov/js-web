@@ -1,3 +1,10 @@
 <h1>Here are your memes</h1>
 <div class="container">
+    {{#each memes}}
+        <div class="meme">
+            <a href="/getDetails?id={{this._id}}">
+                <img class="memePoster" src="/images/{{this._id}}.jpg"/>        
+            </a>  
+        </div>
+    {{/each}}
 </div>
