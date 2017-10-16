@@ -52,10 +52,8 @@ function postAddProduct(req, res) {
     })
     
     form.parse(req, function(err, fields, files) {
-        // console.log(fields)
 
-        // TODO: image not displaying
-        files.image = `./content/images/${imageName}.jpg`
+        fields.image = `./content/images/${imageName}.jpg`
         database.products.add(fields)
 
         res.writeHead(301, {

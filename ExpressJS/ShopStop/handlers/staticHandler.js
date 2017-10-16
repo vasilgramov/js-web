@@ -32,7 +32,8 @@ function getContentType(pathname) {
     let typeMapper =  {
         'html': 'text/html',
         'css': 'text/css',
-        'ico': 'image/x-icon'
+        'ico': 'image/x-icon',
+        'jpg': 'image/jpeg'
     }
 
     return typeMapper[type]
