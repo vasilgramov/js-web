@@ -1,0 +1,15 @@
+{{#each cars}}
+    <div>
+        <img src="{{this.image}}" alt="no image">
+        <p>{{this.brand}} | {{this.model}}</p>
+    </div>
+
+    <form action="/rent/{{this._id}}" method="POST">
+        <input type="submit" value="Rent">
+    </form>
+
+    <br>
+    <br>
+{{else}}
+    <p>There are no cars</p>
+{{/each}}
