@@ -74,7 +74,7 @@ module.exports = {
     },
     profile: (req, res) => {
         User.findById(res.locals.currentUser._id).populate('cars').then((user) => {
-            console.log(user.cars)
+            res.render('home/profile', { cars: user.cars })
         }).catch((err) => {
             console.log(err)
         })

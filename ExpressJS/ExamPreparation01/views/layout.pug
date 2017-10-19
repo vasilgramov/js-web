@@ -1,0 +1,34 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(http-equiv='X-UA-Compatible', content='ie=edge')
+        title Messenger
+        link(rel='stylesheet', type='text/css', href='/css/site.css')
+    body
+        header
+            nav.nav
+                ul
+                    li
+                        a(href='/') Home Page
+
+                    li.delimeter
+                    if user
+                        li.align-right
+                            form#logout-form(method="post" action="/user/logout")
+                            a(href="javascript:document.getElementById('logout-form').submit()") Logout
+                    else
+                        li.align-right
+                            a(href='/user/register') Register
+                        li.align-right
+                            a(href='/user/login') Login
+        if error
+            h2.message.error= error
+        else if success
+            h2.message.success= success
+
+        main
+            block content
+        footer
+            p &copy;Messenger

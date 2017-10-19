@@ -1,0 +1,11 @@
+{{#each cars}}
+    <div>
+        <img src="{{this.image}}" alt="no image">
+        <p>{{this.brand}} | {{this.model}}</p>
+    </div>
+
+    <br>
+    <br>
+{{else}}
+    <p>No rented cars!</p>
+{{/each}}

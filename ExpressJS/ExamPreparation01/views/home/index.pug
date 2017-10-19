@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+    if user
+        form(method='get' action='/user/find')
+            input(type='text' name='username', placeholder='Search usernames...')
+            input(type='submit' value='Search')
+    else
+        h1.head-title Welcome to Messenger!
+    .container
+        if users
+            each otherUser in users
+                .wrapper.row
+                    h3
+                        a(href='/thread/' + otherUser.username)= otherUser.username
+                    if user.blockedUsers.indexOf(otherUser._id) !== -1
+                        a(href='/user/' + otherUser._id + '/unblock') Unblock
+                    else
+                        a(href='/user/' + otherUser._id + '/block') Block

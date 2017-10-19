@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,900');
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: Lato, serif;
+  margin: 0;
+}
+
+main {
+  padding: 0 40px;
+  min-height: 80%;
+}
+
+.nav {
+  margin: 10px 40px;
+}
+
+.nav ul {
+  padding-left: 0;
+}
+
+.nav li {
+  display: inline-block;
+  border-radius: 3px;
+}
+
+.nav li:first-of-type {
+  padding-left: 0;
+}
+
+.nav li a {
+  text-decoration-line: none;
+  padding:10px;
+}
+.nav a:hover {
+  background: whitesmoke;
+}
+
+.align-right {
+  float: right
+}
+
+/**
+Feedback message.
+ */
+.message {
+  margin:0 40px;
+  border-radius: 5px;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-size:20px;
+}
+
+.error {
+  background: darkred;
+}
+.success {
+  background: darkgreen;
+}
+
+
+footer {
+  text-align: center;
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.head-title {
+  margin-top: 0;
+  text-align: center;
+}
+
+/**
+Default wrapper
+ */
+.container {
+  box-sizing: border-box;
+  width:100%;
+  height:100%;
+}
+.wrapper {
+  position: relative;
+  border: 1px solid black;
+  box-sizing: border-box;
+  padding: 10px;
+  margin:10px;
+}
+/**
+Layout
+ */
+.inline {
+  display: inline-block;
+}
+.row {
+  display: block;
+}
+.small {
+  width: 20%;
+}
+.medium {
+  width: 33%;
+}
+.large {
+  width:100%;
+}
+
+
+.post-img {
+  width: 100%;
+  max-width: 350px;
+  max-height: 350px;
+}
+
+.cards {
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.form {
+  width: 50%;
+}
+
+.center-form {
+  margin: 0 auto;
+}
+
+.form-group label {
+  font-size: 1.2em;
+  width: 30%;
+  display: inline-block;
+  text-align: end;
+  padding-right: 10px;
+  vertical-align: top;
+}
+
+.input-field {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid lightgrey;
+  font-size: inherit;
+}
+
+textarea.input-field {
+  padding: 10px;
+  font-family: inherit;
+}
+
+.input-field:focus {
+  outline: none;
+}
+
+.form-group {
+  padding: 10px;
+}
+
+.btn {
+  padding: 10px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  color: inherit;
+  display: inline-block;
+  text-decoration-line: none;
+  margin: 5px;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.btn-primary {
+  color: #ffffff;
+  background-color: #2fa4e7;
+  border-color: #2fa4e7;
+}
+
+.btn-success {
+  color: #ffffff;
+  background-color: #73a839;
+  border-color: #73a839;
+}
+
+.btn-warning {
+  color: #ffffff;
+  background-color: #dd5600;
+  border-color: #dd5600;
+}
+
+.btn-danger {
+  color: #ffffff;
+  background-color: #c71c22;
+  border-color: #c71c22;
+}
+
+#likes {
+  color: darkgreen;
+}
+.wrapper::after {
+  clear:both;
+}
+
+.thread-message {
+  color: #ffffff;
+  border-radius:10px;
+  max-width:80%;
+  padding:10px;
+  margin:5px;
+  word-break: break-all;
+}
+.thread-message::after {
+  clear: both;
+  content: '';
+}
+.left {
+  float: left;
+  background-color: dimgray;
+}
+.right {
+  float: right;
+  background-color: deepskyblue;
+}
+.message-row {
+  margin: 10px 0;
+}
+.clear {
+  clear:both;
+}
+.chat-wrapper {
+  width:50%;
+  margin: auto;
+}
+#chat-form {
+  width:80%;
+}
+.message-img {
+  width:100%;
+}
+.liked {
+  color: gold;
+}
