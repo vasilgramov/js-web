@@ -1,0 +1,49 @@
+<form method="post" action="/createProduct">
+  <h2>Create Product</h2>
+  <div>
+    <label for="category">Category</label>
+    <select name="category" id="category">
+      <option value="beef">Beef</option>
+      <option value="chicken">Chicken</option>
+      <option value="lamb">Lamb</option>
+    </select>
+  </div>
+  <div>
+    <label for="imageUrl">Image Url</label>
+    <input id="imageUrl" name="imageUrl" type="text">
+  </div>
+  <div>
+    <label for="size">Size</label>
+    <input id="size" name="size" type="number">
+  </div>
+  <div>
+    <strong>Toppings</strong>
+    <div>
+      <label for="pickle">Pickle</label>
+      <input id="pickle" type="checkbox" name="toppings" value="pickle">
+    </div>
+    <div>
+      <label for="tomato">Tomato</label>
+      <input id="tomato" type="checkbox" name="toppings" value="tomato">
+    </div>
+    <div>
+      <label for="onion">Onion</label>
+      <input id="onion" type="checkbox" name="toppings" value="onion">
+    </div>
+    <div>
+      <label for="lettuce">Lettuce</label>
+      <input id="lettuce" type="checkbox" name="toppings" value="lettuce">
+    </div>
+    <div>
+      <label for="hotsauce">Hot Sauce</label>
+      <input id="hotsauce" type="checkbox" name="toppings" value="hotsauce">
+    </div>
+    <div>
+      <label for="extrasauce">Extra Sauce</label>
+      <input id="extrasauce" type="checkbox" name="toppings" value="extrasauce">
+    </div>
+  </div>
+  <div>
+    <input type="submit" value="Create" />
+  </div>
+</form>
