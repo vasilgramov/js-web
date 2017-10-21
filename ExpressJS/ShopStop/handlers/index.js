@@ -1,8 +1,9 @@
-const homeHandler = require('./homeHandler.js')
-const productHandler = require('./productHandler.js')
+const homeHandler = require('./home')
+const productHandler = require('./product')
+const categoryHandler = require('./category')
 
-const staticHandler = require('./staticHandler.js')
-
-// const errorHandler = require('./errorHandler.js')
-
-module.exports = [ homeHandler, productHandler, staticHandler ]
+module.exports = { 
+   homeHandler, 
+    productHandler, 
+    categoryHandler,
+}

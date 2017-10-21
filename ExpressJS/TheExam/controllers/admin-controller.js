@@ -76,7 +76,7 @@ function getStatus(order) {
         order.pending = true
     } else if (order.status === 'In Progress') {
         order.inProgress = true
-    } else if (order.status === 'In Transit') {
+    } else if (order.status === 'In transit') {
         order.inTransit = true
     } else if (order.status === 'Delivered') {
         order.delivered = true
