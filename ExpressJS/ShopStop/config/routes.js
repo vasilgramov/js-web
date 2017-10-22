@@ -1,14 +1,17 @@
 const handlers = require('../handlers')
-const multer = require('multer')
-
-const upload = multer({ dest: './content/images' })
 
 module.exports = (app) => {
-  // app.get('/', handlers.homeHandler.index)
+  app.get('/', handlers.home.index)
 
-    // app.get('/product/add', handlers.product.getAddProduct)
-    // app.post('/product/add', handlers.product.postAddProduct)
+  app.get('/product/add', handlers.product.getAddProduct)
+  app.post('/product/add', handlers.product.postAddProduct)
 
-    // app.get('/category/add', handlers.category.getAddCategory)
-    // app.post('/category/add', handlers.category.postAddCategory)
+  app.get('/category/add', handlers.category.getAddCategory)
+  app.post('/category/add', handlers.category.postAddCategory)
+
+  app.all('*', (req, res) => {
+    res.status(404)
+    res.send('404 Not Found')
+    res.end()
+  })
 }

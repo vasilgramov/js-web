@@ -7,8 +7,8 @@ const formiable = require('formidable')
 const Category = require('../models/Category')
 
 module.exports = {
-    getAddCategory: getAddCategory(req, res),
-    postAddCategory: postAddCategory(req, res)
+    getAddCategory: getAddCategory,
+    postAddCategory: postAddCategory
 }
 
 function getAddCategory(req, res) {
@@ -22,20 +22,6 @@ function postAddCategory(req, res) {
     Category.create(category).then((category) => {
         res.redirect('/')
     })
-    
-    // let form = new formiable.IncomingForm()
-
-    // form.parse(req, function (err, fields, files) {
-    //     let category = createCategory(fields)
-
-    //     Category.create(category).then((category) => {
-    //         res.writeHead(301, {
-    //             Location: '/'
-    //         })
-
-    //         res.end()
-    //     })
-    // })
 }
 
 function createCategory(fields) {
