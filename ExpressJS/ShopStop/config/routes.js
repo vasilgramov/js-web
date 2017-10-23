@@ -6,8 +6,12 @@ module.exports = (app) => {
   app.get('/product/add', handlers.product.getAddProduct)
   app.post('/product/add', handlers.product.postAddProduct)
 
+  app.get('/prodyct/edit/:id', handlers.product.editProduct)
+
   app.get('/category/add', handlers.category.getAddCategory)
   app.post('/category/add', handlers.category.postAddCategory)
+
+  app.get('/category/:category/products', handlers.category.getProductsByCategory)
 
   app.all('*', (req, res) => {
     res.status(404)

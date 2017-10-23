@@ -11,6 +11,11 @@
       <img class="product-img" src="{{this.image}}">
       <h2>{{this.name}}</h2>
       <p>{{this.description}}</p>
+
+      <a href="/product/buy/{{this._id}}" class="btn btn-small btn-success">Buy</a>
+      <a href="/product/edit/{{this._id}}" class="btn btn-small btn-warning">Edit</a>
+      <a href="/product/delete/{{this._id}}" class="btn btn-small btn-danger">Delete</a>
+      <a href="/category/{{this.category.name}}/products" class="btn btn-small btn-primary">More {{this.category.name}}</a>
     </div>
   {{else}}
   <p>No products</p>

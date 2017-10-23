@@ -5,10 +5,12 @@ const path = require('path')
 const formiable = require('formidable')
 
 const Category = require('../models/Category')
+const Product = require('../models/Product')
 
 module.exports = {
     getAddCategory: getAddCategory,
-    postAddCategory: postAddCategory
+    postAddCategory: postAddCategory,
+    getProductsByCategory: getProductsByCategory
 }
 
 function getAddCategory(req, res) {
@@ -28,4 +30,15 @@ function createCategory(fields) {
     return {
         name: fields.name
     }
+}
+
+function getProductsByCategory(req, res) {
+    let category = req.params.category
+    console.log(category)
+
+    Category.findOne({name: category}).populate('products').then((category) => {
+        console.log(category)
+
+        res.render('category/products', { category })
+    })
 }

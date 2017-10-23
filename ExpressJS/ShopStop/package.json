@@ -12,6 +12,8 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "express-fileupload": "^0.3.0",
+    "express-fileuploader": "0.0.7",
     "express-handlebars": "^3.0.0",
     "formidable": "^1.1.1",
     "handlebars": "^4.0.11",

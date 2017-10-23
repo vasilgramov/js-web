@@ -1,4 +1,4 @@
-<form class="form center-form" method="post" enctype="multipart/form-data">
+<form class="form center-form" method="post" encType="multipart/form-data">
 
   <div class="form-group">
     <label for="name">Name</label>
@@ -22,9 +22,14 @@
 
   <div class="form-group">
     <label for="group">Group</label>
-    <!-- LIST CATEGORIES -->
-    
-    {categories}
+
+    <select class="input-field" name="category">
+    {{#each categories}}
+      <option value="{{this._id}}">{{this.name}}</option>
+    {{else}}
+    <p>NO categories!</p>
+    {{/each}}
+    </select>
   </div>
 
   <div class="form-group">

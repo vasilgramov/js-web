@@ -25,13 +25,27 @@
                 <li>
                     <a href="/category/add">Add Category</a>
                 </li>
+                <li class="align-right">
+                    <a href="/user/register">Regiter</a>
+                </li>
+                <li class="align-right">
+                    <a href="/user/login">Login</a>
+                </li>
             </ul>
         </nav>
     </header>
 
     <main>
 
-        {{{body}}}
+        {{#if error}}
+        <h2 class="error-msg">{{error}}</h2>
+        {{/if}} 
+        
+        {{#if success}}
+        <h2 class="success-msg">{{success}}</h2>
+        {{/if}}
+        
+         {{{body}}}
 
     </main>
 
