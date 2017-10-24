@@ -2,17 +2,17 @@
 
   <div class="form-group">
     <label for="name">Name</label>
-    <input id="name" name="name" type="text" class="input-field" />
+    <input id="name" name="name" type="text" class="input-field" value="{{product.name}}"/>
   </div>
 
   <div class="form-group">
     <label for="description">Description</label>
-    <textarea id="description" name="description" type="text" class="input-field"></textarea>
+    <textarea id="description" name="description" type="text" class="input-field">{{product.description}}</textarea>
   </div>
 
   <div class="form-group">
     <label for="price">Price</label>
-    <input id="price" name="price" type="number" step="0.01" class="input-field" />
+    <input id="price" name="price" type="number" step="0.01" class="input-field" value="{{product.price}}"/>
   </div>
 
   <div class="form-group">
@@ -26,7 +26,7 @@
     <select class="input-field" name="category">
     
     {{#each categories}}
-      <option value="{{this._id}}">{{this.name}}</option>
+      <option value="{{this._id}}" {{#if this.current}} selected {{/if}}>{{this.name}}</option>
     {{else}}
     <p>NO categories!</p>
     {{/each}}
@@ -34,7 +34,7 @@
   </div>
 
   <div class="form-group">
-    <input class="btn form-btn" type="submit" class="btn" value="Add">
+    <input class="btn form-btn" type="submit" class="btn" value="Edit">
   </div>
 
 </form>

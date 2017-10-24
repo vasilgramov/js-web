@@ -11,7 +11,8 @@ const Category = require('../models/Category')
 module.exports = {
     getAddProduct: getAddProcuct,
     postAddProduct: postAddProduct,
-    editProduct: editProduct
+    getEditProduct: getEditProduct,
+    postEditProduct: postEditProduct
 }
 
 function getAddProcuct(req, res) {
@@ -58,7 +59,7 @@ function getProduct(fields) {
     }
 }
 
-function editProduct(req, res) {
+function getEditProduct(req, res) {
     let productId = req.params.id
 
     Product.findById(productId, function (err, product) {
@@ -73,7 +74,48 @@ function editProduct(req, res) {
                 return
             }
 
+            // TODO: REMOVE CURRENT PRODUCT FROM CATEGORIES
+
+            markCurrentCateogy(product.category, categories)
             res.render('product/edit', { product, categories })
         })
     })
+}
+
+function markCurrentCateogy(currentId, categories) {
+    for (let category of categories) {
+        if ((category._id + '') === (currentId + '')) {
+            category.current = true
+            return
+        }
+    }
+}
+
+function postEditProduct(req, res) {
+
+    let productId = req.params.id
+    let body = req.body
+
+    Product.findById(productId, function (err, product) {
+        if (err) {
+            console.log(err)
+            return
+        }
+
+
+        // TODO: CHECK IF NEW IMAGE IS UPLOADED
+        //       ...REMOVE THE OLD ONE
+
+        updateProduct(body, product)
+
+
+    })
+
+}
+
+function updateProduct(newData, product) {
+    product.name = newData.name
+    product.description = newData.description
+    product.price = Number(newData.price)
+    product.category = newData.category
 }

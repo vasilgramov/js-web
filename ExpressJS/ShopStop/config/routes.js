@@ -6,7 +6,8 @@ module.exports = (app) => {
   app.get('/product/add', handlers.product.getAddProduct)
   app.post('/product/add', handlers.product.postAddProduct)
 
-  app.get('/prodyct/edit/:id', handlers.product.editProduct)
+  app.get('/product/edit/:id', handlers.product.getEditProduct)
+  app.post('/product/edit/:id', handlers.product.postEditProduct)
 
   app.get('/category/add', handlers.category.getAddCategory)
   app.post('/category/add', handlers.category.postAddCategory)
