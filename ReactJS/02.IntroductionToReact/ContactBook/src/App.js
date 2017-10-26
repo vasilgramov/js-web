@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-// import Contact from './Contact'
+import Contact from './Contact'
 import DetailedContact from './DetailedContact'
 
 let contacts = [
@@ -63,29 +63,17 @@ let contacts = [
   }
 ]
 
-let idx = 0;
-
-class Contact extends Component {
-
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    return (
-      <div className="contact" data-id={this.props.person.id} onClick={() => {
-        idx = this.props.person.index;
-        ReactDOM.render(ReactDOM.render(<App />, document.getElementById('root')));
-      }}>
-        <span className="avatar small">&#9787;</span>
-        <span className="title">{this.props.person.firstName} {this.props.person.lastName}</span>
-      </div>
-    );
-  }
-}
-
-
 class App extends Component {
+
+  constructor() {
+    super()
+
+    this.state = { onFocus: 0 }
+
+    this.change = (newFocus => {
+      this.setState({onFocus: newFocus})
+    })
+  }
 
   render() {
     return (
@@ -99,7 +87,7 @@ class App extends Component {
 
               {contacts.map((c, index) => {
                 c.index = index;
-                return <Contact key={index} person={c} />
+                return <Contact key={index} person={c} func={this.change}/>
               })}
 
 
@@ -107,11 +95,9 @@ class App extends Component {
           </div>
           <div id="details">
             <h1>Details</h1>
-
-            {
-              <DetailedContact person={idx} />
-            }
-
+              {
+                <DetailedContact person={contacts[this.state.onFocus]}/>
+              }
           </div>
         </div>
         <footer>Contact Book SPA &copy; 2017</footer>
