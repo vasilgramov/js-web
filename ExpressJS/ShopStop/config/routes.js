@@ -9,6 +9,12 @@ module.exports = (app) => {
   app.get('/product/edit/:id', handlers.product.getEditProduct)
   app.post('/product/edit/:id', handlers.product.postEditProduct)
 
+  app.get('/product/delete/:id', handlers.product.getDeleteProduct)
+  app.post('/product/delete/:id', handlers.product.postDeleteProduct)
+
+  app.get('/product/buy/:id', handlers.product.getBuyProduct)
+  app.post('/product/buy/:id', handlers.product.postBuyProduct)
+
   app.get('/category/add', handlers.category.getAddCategory)
   app.post('/category/add', handlers.category.postAddCategory)
 

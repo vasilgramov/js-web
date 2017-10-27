@@ -34,10 +34,8 @@ function createCategory(fields) {
 
 function getProductsByCategory(req, res) {
     let category = req.params.category
-    console.log(category)
 
     Category.findOne({name: category}).populate('products').then((category) => {
-        console.log(category)
 
         res.render('category/products', { category })
     })

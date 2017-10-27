@@ -12,7 +12,11 @@ module.exports = {
     getAddProduct: getAddProcuct,
     postAddProduct: postAddProduct,
     getEditProduct: getEditProduct,
-    postEditProduct: postEditProduct
+    postEditProduct: postEditProduct,
+    getDeleteProduct: getDeleteProduct,
+    postDeleteProduct: postDeleteProduct,
+    getBuyProduct: getBuyProduct,
+    postBuyProduct: postBuyProduct
 }
 
 function getAddProcuct(req, res) {
@@ -25,7 +29,7 @@ function postAddProduct(req, res) {
 
     let id = shortid.generate()
     let path = `content/images/${id}.jpg`
-    
+
     req.files.image.mv(path, function (err) {
         if (err) {
             console.log(err)
@@ -33,11 +37,10 @@ function postAddProduct(req, res) {
         }
 
         req.body.image = `/images/${id}.jpg`
-        
+
         let product = getProduct(req.body)
         Product.create(product).then((product) => {
             Category.findById(req.body.category, function (err, category) {
-                console.log(category)
                 category.products.push(product._id)
 
                 category.save(() => {
@@ -74,8 +77,6 @@ function getEditProduct(req, res) {
                 return
             }
 
-            // TODO: REMOVE CURRENT PRODUCT FROM CATEGORIES
-
             markCurrentCateogy(product.category, categories)
             res.render('product/edit', { product, categories })
         })
@@ -102,20 +103,107 @@ function postEditProduct(req, res) {
             return
         }
 
-
-        // TODO: CHECK IF NEW IMAGE IS UPLOADED
-        //       ...REMOVE THE OLD ONE
-
         updateProduct(body, product)
+        updateImage(product, req.files.image)
 
+        product.save()
 
+        res.redirect('/?success=Product edited successfully!')
     })
-
 }
 
 function updateProduct(newData, product) {
+    removeOlderCategory(newData, product)
+
     product.name = newData.name
     product.description = newData.description
     product.price = Number(newData.price)
     product.category = newData.category
+
+    updateNewCategory(product)
+}
+
+function removeOlderCategory(newData, product) {
+    if ((newData.category + '') !== (product.category + '')) {
+        Category.findById(product.category, function (err, category) {
+            if (err) {
+                console.log(err)
+                return
+            }
+
+            category.products.pull(product._id)
+            category.save()
+        })
+    }
+}
+
+function updateNewCategory(product) {
+    Category.findById(product.category, function (err, category) {
+        if (err) {
+            console.log(err)
+            return
+        }
+
+        category.products.push(product._id)
+        category.save()
+    })
+}
+
+function updateImage(product, image) {
+    if (image !== undefined) {
+        fs.unlinkSync(`content${product.image}`)
+
+        let id = shortid.generate()
+        product.image = `/images/${id}.jpg`
+        let path = `content/images/${id}.jpg`
+        image.mv(path, function (err) {
+            if (err) console.log(err)
+        })
+    }
+}
+
+function getDeleteProduct(req, res) {
+    let id = req.params.id
+
+    Product.findById(id, function (err, product) {
+        if (err) {
+            res.redirect('/?error=Product does not exist!')
+            return
+        }
+
+        res.render('product/delete', { product })
+    })
+}
+
+function postDeleteProduct(req, res) {
+    let id = req.params.id
+
+    Product.findById(id).remove(function (err) {
+        if (err) {
+            res.redirect('/?error=Product does not exist!')
+            return
+        }
+
+
+        // TODO DELETE IMAGE AND FROM CATEGORY
+
+        res.redirect('/?success=Product deleted successfully!')
+    })
+}
+
+function getBuyProduct(req, res) {
+    let id = req.params.id
+
+    Product.findById(id, function(err, product) {
+        if (err) {
+            res.redirect('/?error=Product does not exist!')
+            return
+        }
+
+        res.render('product/buy', { product })
+    })
+}
+
+function postBuyProduct(req, res) {
+    // TODO
 }
