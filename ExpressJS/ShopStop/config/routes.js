@@ -1,8 +1,16 @@
-const handlers = require('../handlers')
+const handlers = require('../controllers')
 
 module.exports = (app) => {
   app.get('/', handlers.home.index)
 
+  // User
+  app.get('/user/register', handlers.user.getRegister)
+  app.post('/user/register', handlers.user.postRegister)
+  app.get('/user/login', handlers.user.loginGet)
+  app.post('/user/login', handlers.user.loginPost)
+  
+
+  // Products
   app.get('/product/add', handlers.product.getAddProduct)
   app.post('/product/add', handlers.product.postAddProduct)
 
@@ -15,6 +23,7 @@ module.exports = (app) => {
   app.get('/product/buy/:id', handlers.product.getBuyProduct)
   app.post('/product/buy/:id', handlers.product.postBuyProduct)
 
+  // Category
   app.get('/category/add', handlers.category.getAddCategory)
   app.post('/category/add', handlers.category.postAddCategory)
 

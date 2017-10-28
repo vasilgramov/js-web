@@ -11,5 +11,6 @@ database(config[enviroment])
 
 require('./config/express')(app, config[enviroment])
 require('./config/routes')(app)
+require('./config/passport')()
 
 app.listen(port)

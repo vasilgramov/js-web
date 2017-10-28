@@ -4,6 +4,11 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 
 const categorySchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },
+    creator: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
     products: [{
         type: ObjectId,
         ref: 'Product'

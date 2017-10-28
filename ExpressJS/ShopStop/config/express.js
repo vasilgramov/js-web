@@ -4,6 +4,10 @@ const bodyParser = require('body-parser')
 const handlebars = require('express-handlebars')
 const fileUpload = require('express-fileupload')
 
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const passport = require('passport')
+
 module.exports = (app, config) => {
 
     app.engine('.hbs', handlebars({
@@ -16,6 +20,14 @@ module.exports = (app, config) => {
     }))
     app.use(fileUpload())
 
+    app.use(cookieParser())
+    app.use(session({
+        secret: 'secret',
+        saveUninitialized: false,
+        resave: false
+    }))
+    app.use(passport.initialize())
+    app.use(passport.session())
 
     app.use(express.static(
         path.normalize(

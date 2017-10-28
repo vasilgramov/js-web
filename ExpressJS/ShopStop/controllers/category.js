@@ -21,7 +21,12 @@ function postAddCategory(req, res) {
     let categoryObj = req.body
 
     let category = createCategory(categoryObj)
-    Category.create(category).then((category) => {
+    Category.create(category, function (err, category) {
+        if (err) {
+            console.log(err)
+            return
+        }
+
         res.redirect('/')
     })
 }
