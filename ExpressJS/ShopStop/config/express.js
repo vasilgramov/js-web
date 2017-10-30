@@ -35,6 +35,14 @@ module.exports = (app, config) => {
         )
     ))
 
+    app.use((req, res, next) => {
+        if (req.user) {
+            res.locals.currentUser = req.user
+        }
+
+        next()
+    })
+
     app.set('view engine', '.hbs')
     app.use(express.static('./static'))
 }

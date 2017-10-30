@@ -25,12 +25,21 @@
                 <li>
                     <a href="/category/add">Add Category</a>
                 </li>
+
+                {{#if currentUser}}
+                <li class="align-right">
+                    <form id="logout-form" action="/user/logout" method="post"></form>
+                    <a href="javascript:document.getElementById('logout-form').submit()">Logout</a>
+                </li>
+                {{else}}
                 <li class="align-right">
                     <a href="/user/register">Regiter</a>
                 </li>
                 <li class="align-right">
                     <a href="/user/login">Login</a>
                 </li>
+                {{/if}}
+
             </ul>
         </nav>
     </header>
@@ -39,13 +48,9 @@
 
         {{#if error}}
         <h2 class="error-msg">{{error}}</h2>
-        {{/if}} 
-        
-        {{#if success}}
+        {{/if}} {{#if success}}
         <h2 class="success-msg">{{success}}</h2>
-        {{/if}}
-        
-         {{{body}}}
+        {{/if}} {{{body}}}
 
     </main>
 

@@ -19,6 +19,7 @@ function getAddCategory(req, res) {
 
 function postAddCategory(req, res) {
     let categoryObj = req.body
+    categoryObj.creator = req.user._id
 
     let category = createCategory(categoryObj)
     Category.create(category, function (err, category) {

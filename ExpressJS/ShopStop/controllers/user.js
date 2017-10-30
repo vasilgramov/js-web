@@ -5,7 +5,8 @@ module.exports = {
     getRegister: getRegister,
     postRegister: postRegister,
     loginGet: loginGet,
-    loginPost: loginPost
+    loginPost: loginPost,
+    logout: logout
 }
 
 function getRegister(req, res) {
@@ -61,8 +62,34 @@ function loginGet(req, res) {
     res.render('user/login')
 }
 
-function loginPost(req, res) {
-    let body = req.body
+async function loginPost(req, res) {
+    const reqUser = req.body
+    try {
+        const user = await User.findOne({ username: reqUser.username })
 
-    console.log(body)
+        if (!user) {
+            console.log(err)
+            return
+        }
+
+        if (!user.authenticate(reqUser.password)) {
+            console.log(err)
+            return
+        }
+
+        req.logIn(user, (err, user) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.redirect('/')
+            }
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+function logout(req, res) {
+    req.logout()
+    res.redirect('/')
 }

@@ -37,6 +37,7 @@ function postAddProduct(req, res) {
         }
 
         req.body.image = `/images/${id}.jpg`
+        req.body.creator = req.user._id
 
         let product = getProduct(req.body)
         Product.create(product).then((product) => {
@@ -65,21 +66,25 @@ function getProduct(fields) {
 function getEditProduct(req, res) {
     let productId = req.params.id
 
+
     Product.findById(productId, function (err, product) {
         if (err) {
             console.log(err)
             return
         }
 
-        Category.find({}, function (err, categories) {
-            if (err) {
-                console.log(err)
-                return
-            }
+        if (product.creator.equals(req.user._id) ||
+            req.user.roles.indexOf('Admin') > 0) {
+            Category.find({}, function (err, categories) {
+                if (err) {
+                    console.log(err)
+                    return
+                }
 
-            markCurrentCateogy(product.category, categories)
-            res.render('product/edit', { product, categories })
-        })
+                markCurrentCateogy(product.category, categories)
+                res.render('product/edit', { product, categories })
+            })
+        }
     })
 }
 
@@ -103,13 +108,18 @@ function postEditProduct(req, res) {
             return
         }
 
-        updateProduct(body, product)
-        updateImage(product, req.files.image)
+        if (product.creator.equals(req.user._id) ||
+            req.user.roles.indexOf('Admin') > 0) {
 
-        product.save()
+            updateProduct(body, product)
+            updateImage(product, req.files.image)
 
-        res.redirect('/?success=Product edited successfully!')
+            product.save()
+
+            res.redirect('/?success=Product edited successfully!')
+        }
     })
+
 }
 
 function updateProduct(newData, product) {
@@ -171,7 +181,10 @@ function getDeleteProduct(req, res) {
             return
         }
 
-        res.render('product/delete', { product })
+        if (product.creator.equals(req.user._id) ||
+            req.user.roles.indexOf('Admin') > 0) {
+            res.render('product/delete', { product })
+        }
     })
 }
 
@@ -184,17 +197,19 @@ function postDeleteProduct(req, res) {
             return
         }
 
+        if (product.creator.equals(req.user._id) ||
+            req.user.roles.indexOf('Admin') > 0) {
+            // TODO DELETE IMAGE AND FROM CATEGORY
 
-        // TODO DELETE IMAGE AND FROM CATEGORY
-
-        res.redirect('/?success=Product deleted successfully!')
+            res.redirect('/?success=Product deleted successfully!')
+        }
     })
 }
 
 function getBuyProduct(req, res) {
     let id = req.params.id
 
-    Product.findById(id, function(err, product) {
+    Product.findById(id, function (err, product) {
         if (err) {
             res.redirect('/?error=Product does not exist!')
             return
@@ -205,5 +220,20 @@ function getBuyProduct(req, res) {
 }
 
 function postBuyProduct(req, res) {
-    // TODO
+    let productId = req.params.id
+
+    Product.findById(productId, function (err, product) {
+        if (err) {
+            console.log(err)
+            return
+        }
+
+        product.buyer = req.user._id
+        product.save().then(() => {
+            req.user.boughtProducts.push(product._id)
+            req.user.save().then(() => {
+                res.redirect('/')
+            })
+        })
+    })
 }
