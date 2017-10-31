@@ -34,15 +34,15 @@ function postAddCategory(req, res) {
 
 function createCategory(fields) {
     return {
-        name: fields.name
+        name: fields.name,
+        creator: fields.creator
     }
 }
 
 function getProductsByCategory(req, res) {
     let category = req.params.category
 
-    Category.findOne({name: category}).populate('products').then((category) => {
-
+    Category.findOne({ name: category }).populate('products').then((category) => {
         res.render('category/products', { category })
     })
 }

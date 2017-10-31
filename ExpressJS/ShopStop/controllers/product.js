@@ -59,7 +59,8 @@ function getProduct(fields) {
         description: fields.description,
         price: Number(fields.price),
         image: fields.image,
-        category: fields.category
+        category: fields.category,
+        creator: fields.creator
     }
 }
 
@@ -73,18 +74,15 @@ function getEditProduct(req, res) {
             return
         }
 
-        if (product.creator.equals(req.user._id) ||
-            req.user.roles.indexOf('Admin') > 0) {
-            Category.find({}, function (err, categories) {
-                if (err) {
-                    console.log(err)
-                    return
-                }
+        Category.find({}, function (err, categories) {
+            if (err) {
+                console.log(err)
+                return
+            }
 
-                markCurrentCateogy(product.category, categories)
-                res.render('product/edit', { product, categories })
-            })
-        }
+            markCurrentCateogy(product.category, categories)
+            res.render('product/edit', { product, categories })
+        })
     })
 }
 
@@ -123,41 +121,32 @@ function postEditProduct(req, res) {
 }
 
 function updateProduct(newData, product) {
-    removeOlderCategory(newData, product)
-
-    product.name = newData.name
-    product.description = newData.description
-    product.price = Number(newData.price)
-    product.category = newData.category
-
-    updateNewCategory(product)
-}
-
-function removeOlderCategory(newData, product) {
-    if ((newData.category + '') !== (product.category + '')) {
-        Category.findById(product.category, function (err, category) {
-            if (err) {
-                console.log(err)
-                return
-            }
-
-            category.products.pull(product._id)
-            category.save()
-        })
-    }
-}
-
-function updateNewCategory(product) {
     Category.findById(product.category, function (err, category) {
         if (err) {
             console.log(err)
             return
         }
 
-        category.products.push(product._id)
-        category.save()
+        category.products.pull(product._id)
+        category.save(() => {
+            product.name = newData.name
+            product.description = newData.description
+            product.price = Number(newData.price)
+            product.category = newData.category
+
+            Category.findById(product.category, function (err, category) {
+                if (err) {
+                    console.log(err)
+                    return
+                }
+
+                category.products.push(product._id)
+                category.save()
+            })
+        })
     })
 }
+
 
 function updateImage(product, image) {
     if (image !== undefined) {
@@ -181,17 +170,15 @@ function getDeleteProduct(req, res) {
             return
         }
 
-        if (product.creator.equals(req.user._id) ||
-            req.user.roles.indexOf('Admin') > 0) {
-            res.render('product/delete', { product })
-        }
+
+        res.render('product/delete', { product })
     })
 }
 
 function postDeleteProduct(req, res) {
     let id = req.params.id
 
-    Product.findById(id).remove(function (err) {
+    Product.findById(id, function (err, product) {
         if (err) {
             res.redirect('/?error=Product does not exist!')
             return
@@ -199,9 +186,17 @@ function postDeleteProduct(req, res) {
 
         if (product.creator.equals(req.user._id) ||
             req.user.roles.indexOf('Admin') > 0) {
-            // TODO DELETE IMAGE AND FROM CATEGORY
+            fs.unlinkSync('./content/' + product.image)
+            Category.findById(product.category, function (err, category) {
+                category.products.pull(product._id)
 
-            res.redirect('/?success=Product deleted successfully!')
+                category.save(() => {
+
+                    product.remove(() => {
+                        res.redirect('/')
+                    })
+                })
+            })
         }
     })
 }
