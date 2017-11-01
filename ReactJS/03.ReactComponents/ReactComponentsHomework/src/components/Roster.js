@@ -27,7 +27,7 @@ class Roster extends Component {
         return (
             <div>
                 {this.state.data.map((data, index) => {
-                    return <Character key={index} image={data.url} />
+                    return <Character key={index} data={data} />
                 })}
             </div>
         )
