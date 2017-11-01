@@ -1,0 +1,58 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+/* slider css */
+
+.warper {
+  display: inline-block;
+  position: relative;
+}
+
+.warper .sliderImg {
+  max-height: 350px;
+}
+
+.warper .slider-button {
+  position: absolute;
+  top:80%;
+  transform:translateY(-50%);
+  width: 100px;
+  height: 100px;
+}
+
+
+.warper .case-left {
+  left: 0;
+}
+.warper .case-right {
+  right: 0;
+}
+
+/*Roster css*/
+
+.char-img {
+  max-height: 200px;
+  display: inline-block;
+  border: 2px solid orange;
+}

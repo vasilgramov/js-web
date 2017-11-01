@@ -147,7 +147,6 @@ function updateProduct(newData, product) {
     })
 }
 
-
 function updateImage(product, image) {
     if (image !== undefined) {
         fs.unlinkSync(`content${product.image}`)
