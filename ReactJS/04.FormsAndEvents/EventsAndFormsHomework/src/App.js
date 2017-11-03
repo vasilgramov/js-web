@@ -4,6 +4,9 @@ import './App.css'
 import SingUpForm from './components/form/SingUpForm'
 import LoginForm from './components/form/LoginForm'
 
+import PokemonForm from './components/form/PokemonForm'
+import PokemonHolder from './components/form/PokemonHolder'
+
 class App extends Component {
 
   constructor() {
@@ -12,30 +15,38 @@ class App extends Component {
     this.state = {
       username: '',
       token: '',
-      displayLoginRegister: true
+      displayLoginRegister: localStorage.getItem('auth')
     }
+
+    this.handleLogin = this.handleLogin.bind(this)
   }
 
-  event() {
-    // TODO: PASS FUNCTION TO PRERENDER STATE(LOGINFORM.JS)
+  handleLogin(username, token, data) {
+
+    localStorage.setItem('auth', token)
+
+    this.setState({
+      username: username,
+      token: token,
+      displayLoginRegister: data
+    })
   }
 
   render() {
 
-    console.log(localStorage.getItem())
-
-    if (this.state.displayLoginRegister) {
+    if (!(localStorage.getItem('auth'))) {
       return (
         <div>
           <SingUpForm />
-          <LoginForm />
+          <LoginForm func={this.handleLogin} />
         </div>
       )
     } else {
       return (
         <div>
-
-          {/* <AddPokemonForm /> */}
+          <h1> Logged </h1>
+          <PokemonForm />
+          <PokemonHolder />
         </div>
       )
     }

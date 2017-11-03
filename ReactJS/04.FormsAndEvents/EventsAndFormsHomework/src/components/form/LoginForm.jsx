@@ -34,14 +34,17 @@ class LoginForm extends Component {
             },
             body: JSON.stringify(payload)
         })
-            .then((res) => {
-                return res.json()
-            })
-            .then((d) => {
-                // and now ...
-                // TODO: PASS FUNCTION TO PRERENDER STATE (APP.JS)
-                localStorage.setItem('authToken', d.token)
-            })
+        .then((res) => {
+            return res.json()
+        })
+        .then((d) => {
+
+            let username = d.user.name
+            let token = d.token
+            let toDisplayRegisterAndLogin = false
+
+            this.props.func(d.user.name, d.token, false)
+        })
     }
 
     render() {

@@ -41,7 +41,6 @@ class SingUpForm extends Component {
         return res.json()
       })
       .then(d => {
-        
         // and now ... ?
       })
   }
