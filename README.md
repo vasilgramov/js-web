@@ -1,2 +1,2 @@
 # js-web
-JS Web Course From SoftUni September 2017
+JS Web - Node, Express and front end frameworks React, Angular
