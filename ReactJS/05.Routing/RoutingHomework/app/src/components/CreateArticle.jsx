@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 
 import NavigationBar from './NavigationBar'
+
+import constants from '../utils/constants'
 
 class CreateArticle extends Component {
 
@@ -28,8 +31,27 @@ class CreateArticle extends Component {
         // author title url imageUrl description
 
         let data = {
-            
+            author: localStorage.getItem('username'),
+            title: this.state.title,
+            url: this.state.url,
+            imageUrl: this.state.image,
+            description: this.state.comment
         }
+
+        console.log(data)
+
+        fetch('https://baas.kinvey.com/appdata/' + constants.appKey + '/posts', {
+            method: 'POST',
+            headers: {
+                Authorization: 'Kinvey ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then((success) => {
+            return success.json()
+        }).then((data) => {
+            console.log(data)
+        })
     }
 
     render() {
@@ -56,7 +78,7 @@ class CreateArticle extends Component {
                             <label>Comment (optional):</label>
                             <textarea onChange={this.onChange} name="comment"></textarea>
 
-                            <input id="btnSubmitPost" value="Submit" type="submit" />
+                            <input onClick={() => { history.push('/') }} id="btnSubmitPost" value="Submit" type="submit" />
                         </form>
                     </div>
                 </section>

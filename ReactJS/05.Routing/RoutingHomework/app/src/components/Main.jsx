@@ -17,7 +17,8 @@ class Main extends Component {
         fetch('https://baas.kinvey.com/appdata/' + constants.appKey + '/posts?query={}&sort={"_kmd.ect": -1}', {
             method: 'GET',
             headers: {
-                Authorization: 'Kinvey ' + localStorage.getItem('token') 
+                Authorization: 'Kinvey ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json'
             }
         }).then((response) => {
             return response.json()
