@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router'
 
 import constants from '../../utils/constants'
 
@@ -18,9 +19,6 @@ class RegisterForm extends Component {
     }
 
     onChange(e) {
-
-        console.log(e.target.name)
-
         this.setState({ [e.target.name]: e.target.value });
     }
 
@@ -44,10 +42,16 @@ class RegisterForm extends Component {
         }).then((data) => {
             localStorage.setItem('token', data._kmd.authtoken);
             localStorage.setItem('username', data.username)
+
+            this.setState({ fireRedirect: true })
         });
     }
 
     render() {
+        if (this.state.fireRedirect) {
+            return <Redirect to='/' />
+        }
+
         return (
             <form onSubmit={this.onSubit} id="registerForm">
                 <h2>Register</h2>

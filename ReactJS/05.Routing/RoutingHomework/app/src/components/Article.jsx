@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 
+import { Link } from 'react-router-dom'
+
 class Article extends Component {
 
     constructor(props) {
         super(props)
 
+        console.log(props)
     }
 
     render() {
+
         return (
             <article className="post">
                 <div className="col rank">
@@ -32,7 +36,7 @@ class Article extends Component {
                             <ul>
                                 <li className="action"><a className="commentsLink" href="#">comments</a></li>
                                 <li className="action"><a className="editLink" href="#">edit</a></li>
-                                <li className="action"><a className="deleteLink" href="#">delete</a></li>
+                                <li className="action"><Link to={'/delete/' + this.props.props._id } >delete</Link></li>
                             </ul>
                         </div>
 

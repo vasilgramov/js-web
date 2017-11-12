@@ -28,20 +28,20 @@ class Main extends Component {
     }
 
     render() {
-        return(
+        return (
             <section id="viewCatalog">
                 <div className="posts">
 
-                {
-                    this.state.posts.map((p, i) => {
-                        p.key = i + 1
+                    {
+                        this.state.posts.map((p, i) => {
+                            p.key = i + 1
 
-                        return <Article key={i} props={p} /> 
-                    })
-                }
+                            return <Article key={i} props={p} />
+                        })
+                    }
 
                 </div>
-        </section>
+            </section>
         )
     }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { Redirect } from 'react-router'
 
 import NavigationBar from './NavigationBar'
 
@@ -28,17 +28,14 @@ class CreateArticle extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        // author title url imageUrl description
-
         let data = {
             author: localStorage.getItem('username'),
             title: this.state.title,
             url: this.state.url,
             imageUrl: this.state.image,
-            description: this.state.comment
+            description: this.state.comment,
+            fireRedirect: false
         }
-
-        console.log(data)
 
         fetch('https://baas.kinvey.com/appdata/' + constants.appKey + '/posts', {
             method: 'POST',
@@ -50,11 +47,16 @@ class CreateArticle extends Component {
         }).then((success) => {
             return success.json()
         }).then((data) => {
-            console.log(data)
+            this.setState({ fireRedirect: true })
         })
     }
 
     render() {
+
+        if (this.state.fireRedirect) {
+            return <Redirect to='/' />
+        }
+            
         return (
             <div>
                 <NavigationBar />
@@ -78,7 +80,7 @@ class CreateArticle extends Component {
                             <label>Comment (optional):</label>
                             <textarea onChange={this.onChange} name="comment"></textarea>
 
-                            <input onClick={() => { history.push('/') }} id="btnSubmitPost" value="Submit" type="submit" />
+                            <input id="btnSubmitPost" value="Submit" type="submit" />
                         </form>
                     </div>
                 </section>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router'
 
 import constants from '../../utils/constants';
 
@@ -40,10 +41,19 @@ class LoginForm extends Component {
         }).then((data) => {
             localStorage.setItem('token', data._kmd.authtoken);
             localStorage.setItem('username', data.username)
+
+            this.setState({ fireRedirect: true })
         });
+
+        
     }
 
     render() {
+        
+        if (this.state.fireRedirect) {
+            return <Redirect to='/' />
+        }
+
         return (
             <form onSubmit={this.onSubit} id="loginForm">
                 <h2>Sign In</h2>

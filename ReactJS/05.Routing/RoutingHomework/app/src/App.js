@@ -10,6 +10,7 @@ import Home from './components/common/Home'
 import Logout from './components/authentication/Logout'
 
 import CreateArticle from './components/CreateArticle'
+import DeleteArticle from './components/DeleteArticle'
 
 class App extends Component {
 
@@ -24,6 +25,7 @@ class App extends Component {
         <Header />
 
         <div className="content">
+
           <Switch>
 
             <Route exact path='/' component={Home} />
@@ -32,8 +34,9 @@ class App extends Component {
 
             <Route path="/create" component={CreateArticle} />
 
-          </Switch>
+            <Route path='/delete/:id' component={DeleteArticle} />
 
+          </Switch>
 
         </div>
 
