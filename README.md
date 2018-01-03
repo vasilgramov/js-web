@@ -1,2 +1,2 @@
 # js-web
-JS Web - Node, Express and front end frameworks React, Angular
+JS Web - Node, Express and front end frameworks React, Angular 2017
